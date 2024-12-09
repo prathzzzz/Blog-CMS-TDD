@@ -1,60 +1,87 @@
 package com.blogcms.utils;
 
-import com.blogcms.config.Configuration;
+import com.blogcms.constants.TestConstants;
+import com.blogcms.exceptions.ElementActionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class WebElementUtils {
     private static final Logger logger = LogManager.getLogger(WebElementUtils.class);
-    private static final int TIMEOUT = Configuration.getInstance().getExplicitTimeout();
     private final WebDriver driver;
+    private final WebDriverWait wait;
 
     public WebElementUtils(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, 
+            Duration.ofSeconds(TestConstants.DEFAULT_TIMEOUT_SECONDS));
     }
 
     public void waitForElementToBeVisible(WebElement element) {
-        logger.debug("Waiting for element to be visible");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT));
-        wait.until(ExpectedConditions.visibilityOf(element));
-    }
-
-    public void waitForElementToBeClickable(WebElement element) {
-        logger.debug("Waiting for element to be clickable");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT));
-        wait.until(ExpectedConditions.elementToBeClickable(element));
+        try {
+            logger.debug("Waiting for element to be visible: {}", element);
+            wait.until(ExpectedConditions.visibilityOf(element));
+        } catch (TimeoutException e) {
+            throw new ElementActionException("Element did not become visible", e);
+        }
     }
 
     public void click(WebElement element) {
-        logger.debug("Attempting to click element");
-        waitForElementToBeClickable(element);
-        element.click();
+        try {
+            logger.debug("Clicking element: {}", element);
+            waitForElementToBeClickable(element);
+            element.click();
+        } catch (ElementClickInterceptedException e) {
+            throw new ElementActionException("Element click was intercepted", e);
+        } catch (StaleElementReferenceException e) {
+            throw new ElementActionException("Element is stale", e);
+        }
     }
 
     public void sendKeys(WebElement element, String text) {
-        logger.debug("Attempting to send keys: {}", text);
-        waitForElementToBeVisible(element);
-        element.clear();
-        element.sendKeys(text);
+        try {
+            logger.debug("Sending keys to element: {}", element);
+            waitForElementToBeVisible(element);
+            element.clear();
+            element.sendKeys(text);
+        } catch (InvalidElementStateException e) {
+            throw new ElementActionException("Element is not in a state to accept text", e);
+        }
     }
 
     public String getText(WebElement element) {
-        logger.debug("Attempting to get text from element");
-        waitForElementToBeVisible(element);
-        return element.getText();
+        try {
+            logger.debug("Getting text from element: {}", element);
+            waitForElementToBeVisible(element);
+            return element.getText();
+        } catch (StaleElementReferenceException e) {
+            throw new ElementActionException("Element is stale while getting text", e);
+        }
     }
 
     public boolean isElementDisplayed(WebElement element) {
         try {
-            waitForElementToBeVisible(element);
-            return element.isDisplayed();
-        } catch (Exception e) {
+            return wait.until(driver -> {
+                try {
+                    return element.isDisplayed();
+                } catch (StaleElementReferenceException e) {
+                    return false;
+                }
+            });
+        } catch (TimeoutException e) {
             return false;
+        }
+    }
+
+    private void waitForElementToBeClickable(WebElement element) {
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (TimeoutException e) {
+            throw new ElementActionException("Element did not become clickable", e);
         }
     }
 } 
