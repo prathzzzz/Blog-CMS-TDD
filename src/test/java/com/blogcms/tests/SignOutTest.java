@@ -10,21 +10,20 @@ public class SignOutTest extends BaseTest {
     
     @Test(description = "Verify signout functionality")
     public void verify_signout() {
-        // Arrange
-        PageFactory pages = new PageFactory(driver);
         navigateToBaseUrl();
         
-        // Act - Login
+        // Login
         pages.getLoginPage()
              .enterEmail(config.getValidEmail())
              .enterPassword(config.getValidPassword())
              .clickCheckbox()
              .clickSubmitButton();
 
-        // Act - Logout
-        pages.getDashboardPage().clickLogout();
+        // Logout
+        pages.getDashboardPage()
+             .clickLogout();
 
-        // Assert
+        // Verify
         String actualHeading = pages.getLoginPage().getSignInHeading();
         Assert.assertEquals(actualHeading, TestConstants.SIGN_IN_TITLE,
                 TestConstants.SIGN_OUT_ERROR);

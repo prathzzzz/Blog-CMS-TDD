@@ -16,6 +16,8 @@ public final class TestConstants {
     public static final String HEADING_MISMATCH_ERROR = "The heading does not match. Expected: %s, but got: %s";
     public static final String SIGN_OUT_ERROR = "Sign-out failed: The heading does not match the expected value.";
     public static final String INVALID_LOGIN_ERROR = "User logged in with invalid credentials";
+    public static final String DASHBOARD_NOT_DISPLAYED = "Dashboard page is not displayed after login";
+    public static final String INVALID_CREDENTIALS_NOT_DISPLAYED = "Invalid credentials message is not displayed";
     
     // Timeouts
     public static final int DEFAULT_TIMEOUT_SECONDS = 10;

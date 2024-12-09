@@ -3,6 +3,7 @@ package com.blogcms.tests;
 import com.blogcms.base.BaseTest;
 import com.blogcms.pages.DashboardPage;
 import com.blogcms.pages.LoginPage;
+import com.blogcms.constants.TestConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -11,32 +12,28 @@ public class LoginTest extends BaseTest {
     @Test(description = "Verify login with valid credentials")
     public void verify_login_with_valid_data() {
         navigateToBaseUrl();
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.enterEmail(config.getValidEmail());
-        loginPage.enterPassword(config.getValidPassword());
-        loginPage.clickCheckbox();
-        loginPage.clickSubmitButton();
-        DashboardPage dashboardPage = new DashboardPage(driver);
-        String actualHeading = dashboardPage.getHeading();
-        String expectedHeading = "Dashboard";
+        
+        pages.getLoginPage()
+             .enterEmail(config.getValidEmail())
+             .enterPassword(config.getValidPassword())
+             .clickCheckbox()
+             .clickSubmitButton();
 
-        Assert.assertEquals(actualHeading, expectedHeading,
-                "The heading does not match. Expected: " + expectedHeading + ", but got: " + actualHeading);
+        Assert.assertEquals(pages.getDashboardPage().getHeading(), 
+                          TestConstants.DASHBOARD_TITLE,
+                          TestConstants.HEADING_MISMATCH_ERROR);
     }
 
     @Test(description = "Verify login with invalid credentials")
     public void verify_login_with_invalid_data() {
         navigateToBaseUrl();
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.enterEmail(config.getInvalidEmail());
-        loginPage.enterPassword(config.getInvalidPassword());
-        loginPage.clickCheckbox();
-        loginPage.clickSubmitButton();
-        boolean isInvalidCredentialsLabelPresent = loginPage.getInvalidCredentialsLabel();
-        if(isInvalidCredentialsLabelPresent) {
-            Assert.assertTrue(true, "Login should not succeed with invalid credentials");
-        } else {
-            Assert.fail("User logged in with invalid credentials");
-        }
+        
+        pages.getLoginPage()
+             .enterEmail(config.getInvalidEmail())
+             .enterPassword(config.getInvalidPassword())
+             .clickSubmitButton();
+
+        Assert.assertTrue(pages.getLoginPage().getInvalidCredentialsLabel(),
+                        TestConstants.INVALID_CREDENTIALS_NOT_DISPLAYED);
     }
 }

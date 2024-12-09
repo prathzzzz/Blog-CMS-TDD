@@ -1,6 +1,7 @@
 package com.blogcms.pages;
 
 import com.blogcms.base.BasePage;
+import com.blogcms.constants.TestConstants;
 import com.blogcms.interfaces.IDashboardPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,5 +27,11 @@ public class DashboardPage extends BasePage implements IDashboardPage {
     @Override
     public void clickLogout() {
         elementUtils.click(buttonLogout);
+    }
+
+    @Override
+    public boolean isDashboardDisplayed() {
+        return elementUtils.getText(labelDashboardHeading)
+                .equals(TestConstants.DASHBOARD_TITLE);
     }
 }

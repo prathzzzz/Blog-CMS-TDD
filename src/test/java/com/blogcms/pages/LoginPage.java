@@ -50,9 +50,9 @@ public class LoginPage extends BasePage implements ILoginPage {
     }
 
     @Override
-    public void clickSubmitButton() {
+    public DashboardPage clickSubmitButton() {
         elementUtils.click(buttonSubmit);
-        new DashboardPage(driver);
+        return new DashboardPage(driver);
     }
 
     @Override
