@@ -11,6 +11,7 @@
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.blogcms.tests.LoginTest"/>
+            <class name="com.blogcms.tests.SignOutTest"/>
         </classes>
     </test>
 

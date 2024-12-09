@@ -28,24 +28,31 @@ public class LoginPage extends BasePage implements ILoginPage {
     @FindBy(xpath = INVALID_CREDENTIALS_LABEL)
     private WebElement labelInvalidCredentials;
 
+    @FindBy(xpath = SIGN_IN_LABEL)
+    private WebElement labelSignIn;
+
     @Override
-    public void enterEmail(String email) {
+    public LoginPage enterEmail(String email) {
         elementUtils.sendKeys(inputEmail, email);
+        return this;
     }
 
     @Override
-    public void enterPassword(String password) {
+    public LoginPage enterPassword(String password) {
         elementUtils.sendKeys(inputPassword, password);
+        return this;
     }
 
     @Override
-    public void clickCheckbox() {
+    public LoginPage clickCheckbox() {
         elementUtils.click(checkboxRememberMe);
+        return this;
     }
 
     @Override
     public void clickSubmitButton() {
         elementUtils.click(buttonSubmit);
+        new DashboardPage(driver);
     }
 
     @Override
@@ -53,4 +60,8 @@ public class LoginPage extends BasePage implements ILoginPage {
         return elementUtils.isElementDisplayed(labelInvalidCredentials);
     }
 
+    @Override
+    public String getSignInHeading() {
+        return elementUtils.getText(labelSignIn);
+    }
 }

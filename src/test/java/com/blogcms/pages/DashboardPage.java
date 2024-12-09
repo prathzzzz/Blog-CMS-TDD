@@ -16,8 +16,15 @@ public class DashboardPage extends BasePage implements IDashboardPage {
     @FindBy(xpath = DASHBOARD_HEADING)
     private WebElement labelDashboardHeading;
 
+    @FindBy(xpath = LOGOUT_BUTTON) private WebElement buttonLogout;
+
     @Override
     public String getHeading() {
         return elementUtils.getText(labelDashboardHeading);
+    }
+
+    @Override
+    public void clickLogout() {
+        elementUtils.click(buttonLogout);
     }
 }
