@@ -19,6 +19,8 @@ public class DashboardPage extends BasePage implements IDashboardPage {
 
     @FindBy(xpath = LOGOUT_BUTTON) private WebElement buttonLogout;
 
+    @FindBy(xpath = CATEGORIES_LINK) private WebElement linkCategory;
+
     @Override
     public String getHeading() {
         return elementUtils.getText(labelDashboardHeading);
@@ -33,5 +35,10 @@ public class DashboardPage extends BasePage implements IDashboardPage {
     public boolean isDashboardDisplayed() {
         return elementUtils.getText(labelDashboardHeading)
                 .equals(TestConstants.DASHBOARD_TITLE);
+    }
+
+    @Override
+    public void goToCategoriesPage() {
+        elementUtils.click(linkCategory);
     }
 }

@@ -84,4 +84,13 @@ public class WebElementUtils {
             throw new ElementActionException("Element did not become clickable", e);
         }
     }
+
+    public void waitForElementValue(WebElement element) {
+        try {
+            logger.debug("Waiting for element to have a value: {}", element);
+            wait.until(driver -> !element.getAttribute("value").isEmpty());
+        } catch (TimeoutException e) {
+            throw new ElementActionException("Element value was not populated within timeout", e);
+        }
+    }
 } 
