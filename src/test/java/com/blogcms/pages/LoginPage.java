@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static com.blogcms.locators.LoginPage.*;
+import static com.blogcms.locators.LoginLocators.*;
 
 public class LoginPage extends BasePage implements ILoginPage {
     public LoginPage(WebDriver driver) {

@@ -6,4 +6,5 @@ public interface IDashboardPage {
     String getHeading();
     void clickLogout();
     void goToCategoriesPage();
+    void goToTagsPage();
 }

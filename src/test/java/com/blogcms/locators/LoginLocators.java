@@ -1,6 +1,6 @@
 package com.blogcms.locators;
 
-public class LoginPage {
+public class LoginLocators {
     public static final String EMAIL_INPUT = "//input[@id='data.email']";
     public static final String PASSWORD_INPUT = "//input[@id='data.password']";
     public static final String REMEMBER_ME_CHECKBOX = "//input[@id='data.remember']";

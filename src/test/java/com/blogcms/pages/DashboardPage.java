@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static com.blogcms.locators.DashboardPage.*;
+import static com.blogcms.locators.DashboardLocators.*;
 
 public class DashboardPage extends BasePage implements IDashboardPage {
     public DashboardPage(WebDriver driver) {
@@ -20,6 +20,8 @@ public class DashboardPage extends BasePage implements IDashboardPage {
     @FindBy(xpath = LOGOUT_BUTTON) private WebElement buttonLogout;
 
     @FindBy(xpath = CATEGORIES_LINK) private WebElement linkCategory;
+
+    @FindBy(xpath = TAGS_LINK) private WebElement linkTags;
 
     @Override
     public String getHeading() {
@@ -40,5 +42,10 @@ public class DashboardPage extends BasePage implements IDashboardPage {
     @Override
     public void goToCategoriesPage() {
         elementUtils.click(linkCategory);
+    }
+
+    @Override
+    public void goToTagsPage() {
+        elementUtils.click(linkTags);
     }
 }

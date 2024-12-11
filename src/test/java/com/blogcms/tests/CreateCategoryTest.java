@@ -29,12 +29,10 @@ public class CreateCategoryTest extends BaseTest {
         pages.getCategoryPage()
                 .setCategoryName(categoryName)
                 .setCategoryDescription("This is a test category")
-                .waitForSlugToBePopulated()
                 .clickCreateCategory();
 
         String expectedSlug = categoryName.toLowerCase().replace(" ", "-");
         Assert.assertTrue(pages.getCategoryPage().getCategorySlug(),
                 "Category slug should be populated");
-
     }
 }

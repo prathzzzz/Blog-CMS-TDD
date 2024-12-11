@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static com.blogcms.locators.CategoryPage.*;
+import static com.blogcms.locators.CategoryLocators.*;
 
 
 public class CategoryPage extends BasePage implements ICategoryPage {
@@ -65,9 +65,5 @@ public class CategoryPage extends BasePage implements ICategoryPage {
         elementUtils.click(buttonCreateCategory);
     }
 
-    @Override
-    public CategoryPage waitForSlugToBePopulated() {
-        elementUtils.waitForElementValue(inputCategorySlug);
-        return this;
-    }
+
 }

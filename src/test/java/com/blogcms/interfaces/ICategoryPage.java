@@ -7,7 +7,6 @@ public interface ICategoryPage {
     String getCreateCategoryHeading();
     CategoryPage setCategoryName(String name);
     boolean getCategorySlug();
-    CategoryPage waitForSlugToBePopulated();
     CategoryPage setCategoryDescription(String description);
     void clickCreateCategory();
 }

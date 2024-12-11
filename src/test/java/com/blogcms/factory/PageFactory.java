@@ -3,6 +3,7 @@ package com.blogcms.factory;
 import com.blogcms.pages.CategoryPage;
 import com.blogcms.pages.LoginPage;
 import com.blogcms.pages.DashboardPage;
+import com.blogcms.pages.TagPage;
 import org.openqa.selenium.WebDriver;
 
 public class PageFactory {
@@ -10,6 +11,7 @@ public class PageFactory {
     private LoginPage loginPage;
     private DashboardPage dashboardPage;
     private CategoryPage categoryPage;
+    private TagPage tagPage;
     public PageFactory(WebDriver driver) {
         this.driver = driver;
     }
@@ -33,5 +35,12 @@ public class PageFactory {
             categoryPage = new CategoryPage(driver);
         }
         return categoryPage;
+    }
+
+    public TagPage getTagPage() {
+        if (tagPage == null) {
+            tagPage = new TagPage(driver);
+        }
+        return tagPage;
     }
 } 

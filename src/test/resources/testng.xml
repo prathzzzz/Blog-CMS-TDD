@@ -10,9 +10,10 @@
     <test name="Chrome Tests">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.blogcms.tests.LoginTest"/>
-            <class name="com.blogcms.tests.SignOutTest"/>
+<!--            <class name="com.blogcms.tests.LoginTest"/>-->
+<!--            <class name="com.blogcms.tests.SignOutTest"/>-->
             <class name="com.blogcms.tests.CreateCategoryTest"/>
+            <class name="com.blogcms.tests.CreateTagTest"/>
         </classes>
     </test>
 

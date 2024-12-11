@@ -17,8 +17,8 @@ public class WebElementUtils {
 
     public WebElementUtils(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 
-            Duration.ofSeconds(TestConstants.DEFAULT_TIMEOUT_SECONDS));
+        this.wait = new WebDriverWait(driver,
+                Duration.ofSeconds(TestConstants.DEFAULT_TIMEOUT_SECONDS));
     }
 
     public void waitForElementToBeVisible(WebElement element) {
@@ -84,8 +84,7 @@ public class WebElementUtils {
             throw new ElementActionException("Element did not become clickable", e);
         }
     }
-
-    public void waitForElementValue(WebElement element) {
+    public void waitForElementValue(WebElement element, String text) {
         try {
             logger.debug("Waiting for element to have a value: {}", element);
             wait.until(driver -> !element.getAttribute("value").isEmpty());
@@ -93,4 +92,5 @@ public class WebElementUtils {
             throw new ElementActionException("Element value was not populated within timeout", e);
         }
     }
-} 
+}
+
